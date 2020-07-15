@@ -7,11 +7,12 @@ public class wallCreateTest : MonoBehaviour
     [SerializeField]
     enum WallCreationType
     {
+        NONE,
         SINGLE_SECTIONS,
         CHAINED_SECTIONS
     };
     [SerializeField]
-    WallCreationType wallCreationType = WallCreationType.SINGLE_SECTIONS;
+    WallCreationType wallCreationType = WallCreationType.NONE;
 
     [SerializeField]
     GameObject wallSection;
@@ -79,6 +80,19 @@ public class wallCreateTest : MonoBehaviour
 
                         break;
                     }
+
+                case WallCreationType.NONE:
+                    {
+                        if (!segmentEnded)
+                        {
+                            segmentBegun = false;
+                            segmentEnded = true;
+                            cornerPtA = null;
+                            cornerPtB = null;
+                        }
+
+                        break;
+                    }
             }
         }
     }
@@ -95,6 +109,9 @@ public class wallCreateTest : MonoBehaviour
                         var obj = (GameObject)Instantiate(cornerPt, touchPos, Quaternion.identity);
                         cornerPtA = obj.transform;
 
+                        ClickToSelectTest selectObjectScript = obj.GetComponent<ClickToSelectTest>();
+                        selectObjectScript.SetThisObject(creationCam);
+
                         segmentBegun = true;
                     }
 
@@ -103,6 +120,9 @@ public class wallCreateTest : MonoBehaviour
                         Vector3 touchPos = creationCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
                         var obj = (GameObject)Instantiate(cornerPt, touchPos, Quaternion.identity);
                         cornerPtB = obj.transform;
+
+                        ClickToSelectTest selectObjectScript = obj.GetComponent<ClickToSelectTest>();
+                        selectObjectScript.SetThisObject(creationCam);
 
                         segmentBegun = false;
                     }
@@ -118,6 +138,9 @@ public class wallCreateTest : MonoBehaviour
                         var obj = (GameObject)Instantiate(cornerPt, touchPos, Quaternion.identity);
                         cornerPtA = obj.transform;
 
+                        ClickToSelectTest selectObjectScript = obj.GetComponent<ClickToSelectTest>();
+                        selectObjectScript.SetThisObject(creationCam);
+
                         segmentBegun = true;
                     }
 
@@ -126,6 +149,9 @@ public class wallCreateTest : MonoBehaviour
                         Vector3 touchPos = creationCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
                         var obj = (GameObject)Instantiate(cornerPt, touchPos, Quaternion.identity);
                         cornerPtB = obj.transform;
+
+                        ClickToSelectTest selectObjectScript = obj.GetComponent<ClickToSelectTest>();
+                        selectObjectScript.SetThisObject(creationCam);
                     }
 
                     break;
