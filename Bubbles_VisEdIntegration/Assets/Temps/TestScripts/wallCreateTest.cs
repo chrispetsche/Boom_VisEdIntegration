@@ -59,40 +59,52 @@ public class wallCreateTest : MonoBehaviour
     {
         if (cornerPtA != null && cornerPtB != null)
         {
-            var obj = (GameObject)Instantiate(wallSection, Vector3.zero, cornerPtA.rotation);
-            angleTest wallSectionSettings = obj.GetComponent<angleTest>();
-            wallSectionSettings.SetWallSectionCornerPoints(cornerPtA, cornerPtB);
-
-            switch (wallCreationType)
+            float distanceBetweenPoints = Vector3.Distance(cornerPtA.position, cornerPtB.position);
+            float acceptableRange = 0.2286f;
+            if (distanceBetweenPoints > acceptableRange && segmentBegun)
             {
-                case WallCreationType.SINGLE_SECTIONS:
-                    {
-                        cornerPtA = null;
-                        cornerPtB = null;
+                var obj = (GameObject)Instantiate(wallSection, Vector3.zero, cornerPtA.rotation);
+                angleTest wallSectionSettings = obj.GetComponent<angleTest>();
+                wallSectionSettings.SetWallSectionCornerPoints(cornerPtA, cornerPtB);
 
-                        break;
-                    }
-
-                case WallCreationType.CHAINED_SECTIONS:
-                    {
-                        cornerPtA = cornerPtB;
-                        cornerPtB = null;
-
-                        break;
-                    }
-
-                case WallCreationType.NONE:
-                    {
-                        if (!segmentEnded)
+                switch (wallCreationType)
+                {
+                    case WallCreationType.SINGLE_SECTIONS:
                         {
-                            segmentBegun = false;
-                            segmentEnded = true;
                             cornerPtA = null;
                             cornerPtB = null;
+
+                            break;
                         }
 
-                        break;
-                    }
+                    case WallCreationType.CHAINED_SECTIONS:
+                        {
+                            cornerPtA = cornerPtB;
+                            cornerPtB = null;
+
+                            break;
+                        }
+
+                    case WallCreationType.NONE:
+                        {
+                            if (!segmentEnded)
+                            {
+                                segmentBegun = false;
+                                segmentEnded = true;
+                                cornerPtA = null;
+                                cornerPtB = null;
+                            }
+
+                            break;
+                        }
+                }
+            }
+
+            else if (distanceBetweenPoints <= acceptableRange && segmentBegun)
+            {
+                GameObject pointToDestroy = cornerPtB.gameObject;
+                Destroy(pointToDestroy);
+                segmentBegun = false;
             }
         }
     }
@@ -132,7 +144,7 @@ public class wallCreateTest : MonoBehaviour
 
             case WallCreationType.CHAINED_SECTIONS:
                 {
-                    if (!segmentBegun && !segmentEnded)
+                    if (!segmentBegun)
                     {
                         Vector3 touchPos = creationCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
                         var obj = (GameObject)Instantiate(cornerPt, touchPos, Quaternion.identity);
@@ -144,7 +156,7 @@ public class wallCreateTest : MonoBehaviour
                         segmentBegun = true;
                     }
 
-                    else if (segmentBegun && !segmentEnded)
+                    else if (segmentBegun)
                     {
                         Vector3 touchPos = creationCam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
                         var obj = (GameObject)Instantiate(cornerPt, touchPos, Quaternion.identity);

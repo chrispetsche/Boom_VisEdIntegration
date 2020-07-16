@@ -11,14 +11,13 @@ public class ObjectSelectionManager : MonoBehaviour
     [SerializeField]
     bool currentObjectActive;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         objectCurrentlySelected = null;
         currentObjectActive = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (objectCurrentlySelected != null)

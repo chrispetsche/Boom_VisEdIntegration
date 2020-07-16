@@ -72,6 +72,7 @@ public class ClickToSelectTest : MonoBehaviour
 
         else
         {
+            selectionManager.SelectedObjectIsActive(true);
             canBeSelected = true;
         }
     }
