@@ -5,7 +5,6 @@ using UnityEngine;
 public class RotateObject : MonoBehaviour
 {
     // Camera that will allow the grabbing of this object.
-    [SerializeField]
     Camera usedCamera;
     // The angle the object rotating will be set to.
     public float angle;
@@ -18,10 +17,6 @@ public class RotateObject : MonoBehaviour
     // not being used, this will be its point to rest at until use.
     [SerializeField]
     Transform restPoint;
-    // This will be where this object snapped to when the system
-    // is shut down.
-    [SerializeField]
-    Transform disabledPosition;
     // This will control if the system is running.
     [SerializeField]
     bool rotateActive;
@@ -46,28 +41,16 @@ public class RotateObject : MonoBehaviour
         }
     }
 
-    // The Manipulation Manager calls in here to shut the system down.
-    public void DisableSystem()
+    // The Manipulation Manager calls this to activate and deactivate the system by passing in the information needed.
+    public void EnableSystem(bool active, bool view, Camera currCam, Transform rotatingObj, Transform pointOfRest)
     {
-        // The system can't do any rotating.
-        rotateActive = false;
-        currentlyRotating = false;
-
-        // Empty the slot for a new object to rotate.
-        objectToRotate = null;
-        // Move this object to a point for all disabled manipulation markers.
-        transform.position = disabledPosition.position;
-    }
-
-    // The Manipulation Manager calls this to activate the system and pass in the information needed.
-    public void EnableSystem(bool view, Transform rotatingObj, Transform pointOfRest)
-    {
-        rotateActive = true;
+        rotateActive = active;
         currentlyRotating = false;
 
         objectToRotate = rotatingObj;
         restPoint = pointOfRest;
         topdownView = view;
+        usedCamera = currCam;
     }
 
     // This tells the object the user wants to rotate how to spin and resets the position of this
