@@ -6,6 +6,7 @@ public class tempManipulationManager : MonoBehaviour
 {
     [SerializeField]
     GameObject assetToManipulate;
+    AssetManipulationGovernor assetManipulationGovernor;
 
     [SerializeField]
     RotateObject rotatableAsset;
@@ -15,7 +16,6 @@ public class tempManipulationManager : MonoBehaviour
 
     [SerializeField]
     Transform[] scale_PointMarkerArray;
-    ScaleObject scalableAsset;
 
     [SerializeField]
     Camera topdownCam;
@@ -25,7 +25,6 @@ public class tempManipulationManager : MonoBehaviour
     // This will be adjusted by the 2D to 3D UI toggle.
     [SerializeField]
     bool currentView_TopDown;
-
 
     private void Start()
     {
@@ -56,34 +55,71 @@ public class tempManipulationManager : MonoBehaviour
         }
     }
 
+    // Selection Manager calls in when an object in the scene has been selected or deselected,
+    // and passes in the object if one chosen.
+    public void ObjectSelected(bool selected, GameObject objSelected)
+    {
+        if (selected)
+        {
+            // When selected, the object is set as an
+            // object to manipulate in some way.
+            assetToManipulate = objSelected;
+            // Set the governor script to communicate with.
+            assetManipulationGovernor = assetToManipulate.GetComponent<AssetManipulationGovernor>();
+
+            EnableAssetManipulationSystems();
+        }
+
+        else
+        {
+            DisableAssetManipulationSystems();
+        }
+    }
+
     void EnableAssetManipulationSystems()
     {
-        rotatableAsset.EnableSystem(true, currentView_TopDown, currentCam, assetToManipulate.transform, tempAssetRotateRestPos);
-        ActivateScalability();
+        if (assetManipulationGovernor.canMove)
+        {
+
+        }
+
+        if (assetManipulationGovernor.canRotate)
+        {
+            rotatableAsset.EnableSystem(true, currentView_TopDown, currentCam, assetToManipulate.transform, assetManipulationGovernor.RotationPointHolder());
+        }
+
+        if (assetManipulationGovernor.canScale)
+        {
+            ScaleObject scalableAssetScript = assetToManipulate.GetComponent<ScaleObject>();
+
+            for (int i = 0; i < scale_PointMarkerArray.Length; i++)
+            {
+                scale_PointMarkerArray[i].position = scalableAssetScript.LoadScalePointMarkers(i, scale_PointMarkerArray[i]).position;
+            }
+
+            scalableAssetScript.EnableScaling(true);
+        }
     }
 
     void DisableAssetManipulationSystems()
     {
+        assetManipulationGovernor = null;
         rotatableAsset.EnableSystem(false, currentView_TopDown, null, null, transform);
         DeactivateScalability();
-    }
 
-    void ActivateScalability()
-    {
-        scalableAsset = assetToManipulate.GetComponent<ScaleObject>();
-
-        scalableAsset.scalePointMarkerArray = new Transform[6];
-        for (int a = 0; a < scale_PointMarkerArray.Length; a++)
-        {
-            scalableAsset.scalePointMarkerArray[a] = scale_PointMarkerArray[a];
-        }
-
-        scalableAsset.EnableScaling(true);
+        assetManipulationGovernor = null;
+        assetToManipulate = null;
     }
 
     void DeactivateScalability()
     {
-        scalableAsset.EnableScaling(true);
-        scalableAsset = null;
+        for (int i = 0; i < scale_PointMarkerArray.Length; i++)
+        {
+            scale_PointMarkerArray[i].position = transform.position;
+            scale_PointMarkerArray[i].gameObject.SetActive(false);
+        }
+
+        ScaleObject scalableAssetScript = assetToManipulate.GetComponent<ScaleObject>();
+        scalableAssetScript.EnableScaling(false);
     }
 }

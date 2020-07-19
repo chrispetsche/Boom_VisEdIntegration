@@ -20,12 +20,18 @@ public class ScaleObject : MonoBehaviour
 
     // These are the points that the 
     // scale marker points will snap to.
-    [SerializeField]
-    Transform[] myScalePoints;
+    public Transform[] myScalePoints;
 
     // The Manipulation Manager will load this array so this
     // system knows what points to scale to.
-    public Transform[] scalePointMarkerArray { get; set; }
+    public Transform[] scalePointMarkerArray = new Transform[6];
+
+    public Transform LoadScalePointMarkers(int pt, Transform marker)
+    {
+        scalePointMarkerArray[pt] = marker;
+
+        return myScalePoints[pt];
+    }
 
     // When this asset is selected and unselected, the Manipulation Manager will call this
     // to active and set the system up to run after its scale point markers are loaded. 

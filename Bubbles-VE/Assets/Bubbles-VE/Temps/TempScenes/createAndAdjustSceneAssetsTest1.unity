@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 29753789}
   - component: {fileID: 29753788}
   - component: {fileID: 29753787}
+  - component: {fileID: 29753791}
   m_Layer: 0
   m_Name: ScalePointMarker_Back
   m_TagString: Untagged
@@ -244,6 +245,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &29753791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29753786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09f1d3b357d9d45a191e317073321d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &40741668
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +269,7 @@ GameObject:
   - component: {fileID: 40741671}
   - component: {fileID: 40741670}
   - component: {fileID: 40741669}
+  - component: {fileID: 40741673}
   m_Layer: 0
   m_Name: ScalePointMarker_Top
   m_TagString: Untagged
@@ -337,6 +351,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &40741673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40741668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09f1d3b357d9d45a191e317073321d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &52623797
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &1040981897
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -943,12 +969,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba9603677e986d4295e21704958d52d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usedCamera: {fileID: 694851850}
   angle: 0
   objectToRotate: {fileID: 1695532437}
   currRot: {x: 0, y: 0, z: 0}
   restPoint: {fileID: 363798047}
-  disabledPosition: {fileID: 1423456818}
   rotateActive: 0
   topdownView: 0
 --- !u!1 &1100968550
@@ -960,6 +984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1100968551}
+  - component: {fileID: 1100968552}
   m_Layer: 0
   m_Name: ScalePointMarker_Bottom
   m_TagString: Untagged
@@ -981,6 +1006,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1100968552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100968550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09f1d3b357d9d45a191e317073321d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1219713153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,6 +1090,7 @@ GameObject:
   - component: {fileID: 1388895553}
   - component: {fileID: 1388895552}
   - component: {fileID: 1388895551}
+  - component: {fileID: 1388895555}
   m_Layer: 0
   m_Name: ScalePointMarker_Left
   m_TagString: Untagged
@@ -1134,6 +1172,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388895555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388895550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09f1d3b357d9d45a191e317073321d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1420530064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,6 +1199,7 @@ GameObject:
   - component: {fileID: 1420530067}
   - component: {fileID: 1420530065}
   - component: {fileID: 1420530066}
+  - component: {fileID: 1420530072}
   m_Layer: 0
   m_Name: MoveRotateAndScalable_Object
   m_TagString: Untagged
@@ -1183,9 +1234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddcd658bd8923644854a58b0e196c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xScalable: 0
-  yScalable: 0
-  zScalable: 0
+  xScalable: 1
+  yScalable: 1
+  zScalable: 1
   scaleActive: 0
   myScalePoints:
   - {fileID: 1219713154}
@@ -1194,9 +1245,13 @@ MonoBehaviour:
   - {fileID: 13030513}
   - {fileID: 1558347852}
   - {fileID: 1274682798}
-  scalePointMarkerArray: []
-  currScale: {x: 0, y: 0, z: 0}
-  currPos: {x: 0, y: 0, z: 0}
+  scalePointMarkerArray:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!54 &1420530067
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1290,9 +1345,26 @@ Transform:
   - {fileID: 1219713154}
   - {fileID: 13030513}
   - {fileID: 153328433}
+  - {fileID: 1837131224}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1420530072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420530064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02af0f909536ab242b37292223f097b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMove: 0
+  canRotate: 0
+  canScale: 0
+  assetRotate_ManipulationPoint: {fileID: 1976193513}
 --- !u!1 &1423456816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,14 +1425,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c15d440b3b96bc449447916b65e2e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testObj: {fileID: 1420530066}
-  tempArray:
+  assetToManipulate: {fileID: 0}
+  rotatableAsset: {fileID: 1040981901}
+  tempAssetRotateRestPos: {fileID: 1976193513}
+  scale_PointMarkerArray:
   - {fileID: 2045551919}
   - {fileID: 29753790}
   - {fileID: 1623854573}
   - {fileID: 1388895554}
   - {fileID: 40741672}
   - {fileID: 1100968551}
+  topdownCam: {fileID: 1714130066}
+  perspCam: {fileID: 694851850}
+  currentView_TopDown: 0
 --- !u!1 &1558347851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,6 +1480,7 @@ GameObject:
   - component: {fileID: 1623854572}
   - component: {fileID: 1623854571}
   - component: {fileID: 1623854570}
+  - component: {fileID: 1623854574}
   m_Layer: 0
   m_Name: ScalePointMarker_Right
   m_TagString: Untagged
@@ -1484,6 +1562,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1623854574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623854569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09f1d3b357d9d45a191e317073321d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1695532433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,6 +1785,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1837131223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1837131224}
+  - component: {fileID: 1837131225}
+  m_Layer: 0
+  m_Name: Rotation_GimblePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1837131224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837131223}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1976193513}
+  m_Father: {fileID: 1420530071}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1837131225
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837131223}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &1840391688
 GameObject:
   m_ObjectHideFlags: 0
@@ -1727,6 +1865,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1976193512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1976193513}
+  m_Layer: 0
+  m_Name: RotationPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1976193513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976193512}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1837131224}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2045551915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,6 +1907,7 @@ GameObject:
   - component: {fileID: 2045551918}
   - component: {fileID: 2045551917}
   - component: {fileID: 2045551916}
+  - component: {fileID: 2045551920}
   m_Layer: 0
   m_Name: ScalePointMarker_Front
   m_TagString: Untagged
@@ -1820,6 +1989,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2045551920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045551915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c09f1d3b357d9d45a191e317073321d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2110156009
 GameObject:
   m_ObjectHideFlags: 0
