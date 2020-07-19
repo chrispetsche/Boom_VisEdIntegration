@@ -4,15 +4,44 @@ using UnityEngine;
 
 public class ScalePointMarkerBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    bool markerActive;
+    bool markerInUse;
+    Transform restPoint;
+    Camera cameraInUse;
+
+    public void SetPointActive(bool active, Camera camToUse, Transform restPt)
     {
-        
+        markerActive = active;
+        cameraInUse = camToUse;
+        restPoint = restPt;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(markerActive)
+        SetMyPosition();
+    }
+
+    void SetMyPosition()
+    {
+        if (!markerInUse)
+        {
+            transform.position = restPoint.position;
+        }
+
+        markerInUse = false;
+    }
+
+    // When this marker is dragged by the mouse/finger...
+    private void OnMouseDrag()
+    {
+        // And the rotate system is active...
+        if (markerActive)
+        {
+            // It's currently rotating
+            markerInUse = true;
+            // This markers position is equal to the x and y of the mouse/finger dragging, and the adjusted distance from the camera.
+            transform.position = cameraInUse.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
+        }
     }
 }

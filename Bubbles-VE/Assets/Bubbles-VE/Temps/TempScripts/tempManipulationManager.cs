@@ -94,7 +94,10 @@ public class tempManipulationManager : MonoBehaviour
 
             for (int i = 0; i < scale_PointMarkerArray.Length; i++)
             {
-                scale_PointMarkerArray[i].position = scalableAssetScript.LoadScalePointMarkers(i, scale_PointMarkerArray[i]).position;
+                Transform restPt = scalableAssetScript.LoadScalePointMarkers(i, scale_PointMarkerArray[i]);
+                scale_PointMarkerArray[i].position = restPt.position;
+                ScalePointMarkerBehavior pointMarker = scale_PointMarkerArray[i].GetComponent<ScalePointMarkerBehavior>();
+                pointMarker.SetPointActive(true, currentCam, restPt);
             }
 
             scalableAssetScript.EnableScaling(true);
@@ -115,6 +118,9 @@ public class tempManipulationManager : MonoBehaviour
     {
         for (int i = 0; i < scale_PointMarkerArray.Length; i++)
         {
+            ScalePointMarkerBehavior pointMarker = scale_PointMarkerArray[i].GetComponent<ScalePointMarkerBehavior>();
+            pointMarker.SetPointActive(false, null, transform);
+
             scale_PointMarkerArray[i].position = transform.position;
             scale_PointMarkerArray[i].gameObject.SetActive(false);
         }
