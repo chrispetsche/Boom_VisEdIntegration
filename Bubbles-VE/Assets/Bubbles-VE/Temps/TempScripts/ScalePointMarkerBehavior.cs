@@ -16,6 +16,11 @@ public class ScalePointMarkerBehavior : MonoBehaviour
         restPoint = restPt;
     }
 
+    public bool MarkerInUse()
+    {
+        return markerInUse;
+    }
+
     void Update()
     {
         if(markerActive)
@@ -41,7 +46,12 @@ public class ScalePointMarkerBehavior : MonoBehaviour
             // It's currently rotating
             markerInUse = true;
             // This markers position is equal to the x and y of the mouse/finger dragging, and the adjusted distance from the camera.
-            transform.position = cameraInUse.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
+            transform.position = cameraInUse.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, AdjustedMarkerDistance()));
         }
+    }
+
+    float AdjustedMarkerDistance()
+    {
+        return Vector3.Distance(cameraInUse.transform.position, restPoint.position);
     }
 }

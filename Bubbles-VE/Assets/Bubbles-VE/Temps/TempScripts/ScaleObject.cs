@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ScaleObject : MonoBehaviour
 {
+    [SerializeField]
+    Camera tempCam;
+
     // These will control which axis the 
     // asset will scale along.
     [SerializeField]
@@ -24,7 +27,9 @@ public class ScaleObject : MonoBehaviour
 
     // The Manipulation Manager will load this array so this
     // system knows what points to scale to.
-    public Transform[] scalePointMarkerArray = new Transform[6];
+    [SerializeField]
+    Transform[] scalePointMarkerArray;
+    ScalePointMarkerBehavior[] pointMarker = new ScalePointMarkerBehavior[6];
 
     public Transform LoadScalePointMarkers(int pt, Transform marker)
     {
@@ -55,19 +60,82 @@ public class ScaleObject : MonoBehaviour
         {
             // When the asset is deactivated the scale point marker array
             // is cleared so that it doesn't by chance scale with another asset.
-            for (int sPt = 0; sPt < scalePointMarkerArray.Length; sPt++)
-            {
-                scalePointMarkerArray[sPt] = null;
-            }
+            //for (int sPt = 0; sPt < scalePointMarkerArray.Length; sPt++)
+            //{
+                //scalePointMarkerArray[sPt] = null;
+            //}
+        }
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < scalePointMarkerArray.Length; i++)
+        {
+            pointMarker[i] = scalePointMarkerArray[i].GetComponent<ScalePointMarkerBehavior>();
         }
     }
 
     void Update()
     {
-        if (scaleActive)
+        if (!scaleActive)
         {
-            ScaleAsset();
+            if (scalePointMarkerArray[5].parent == null)
+            {
+                for (int i = 0; i < scalePointMarkerArray.Length; i++)
+                {
+                    scalePointMarkerArray[i].parent = myScalePoints[i];
+                    pointMarker[i].SetPointActive(false, null, myScalePoints[i]);
+                }
+            }
         }
+
+        else
+        {
+            CheckAssetScaling();
+        }
+    }
+
+    void CheckAssetScaling()
+    {
+        for (int m = 0; m < pointMarker.Length; m++)
+        {
+            if (pointMarker[m].MarkerInUse())
+            {
+                SetMarkers(true, m);
+            }
+
+            else
+            {
+                SetMarkers(false, m);
+            }
+        }
+        
+    }
+
+    void SetMarkers(bool scaling, int inUse)
+    {
+        if (scaling)
+        {
+            for (int m = 0; m < scalePointMarkerArray.Length; m++)
+            {
+                if (m != inUse)
+                {
+                    pointMarker[m].SetPointActive(false, null, myScalePoints[m]);
+                    scalePointMarkerArray[m].parent = myScalePoints[m];
+                }
+            }
+        }
+
+        else
+        {
+            for (int m = 0; m < scalePointMarkerArray.Length; m++)
+            {
+                pointMarker[m].SetPointActive(transform, tempCam, myScalePoints[m]);
+                scalePointMarkerArray[m].parent = null;
+            }
+        }
+
+        ScaleAsset();
     }
 
     // This is called to do the actual scaling of the asset.

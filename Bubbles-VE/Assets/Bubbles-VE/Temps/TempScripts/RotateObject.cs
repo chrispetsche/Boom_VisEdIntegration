@@ -94,7 +94,7 @@ public class RotateObject : MonoBehaviour
     // much more smoothly.
     float MarkerDistanceFromCamera()
     {
-        return Vector3.Distance(usedCamera.transform.position, objectToRotate.position) - 1;
+        return Vector3.Distance(usedCamera.transform.position, objectToRotate.position) - 2;
     }
 
     // When this marker is dragged by the mouse/finger...
