@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ClickToSelectTest : MonoBehaviour
 {
-    [SerializeField]
-    Camera cameraInUse;
+    //!!! THIS WILL BE SET WHEN THE ASSET IS INSTANTIATED. IT'S NEEDED IN THE GOVERNOR !!!//
     [SerializeField]
     ObjectSelectionManager selectionManager;
 
@@ -15,61 +14,45 @@ public class ClickToSelectTest : MonoBehaviour
     [SerializeField]
     bool objectSelected;
 
-    float zCoordinate;
-    Vector3 offset;
-
     public void SetThisObject(Camera camToUse, GameObject managementObj)
     {
-        cameraInUse = camToUse;
+        //cameraInUse = camToUse;
         selectionManager = managementObj.GetComponent<ObjectSelectionManager>();
         UnselectThisObject();
     }
 
+    // The Object Selection Manager calls this when asset 
+    // is no longer selected based on its conditions.
     public void UnselectThisObject()
     {
         canBeSelected = false;
         objectSelected = false;
     }
 
-    void OnMouseDown()
-    {
-        
-    }
-
+    // When the mouse button or finger is lifted from the asset...
     private void OnMouseUp()
     {
+        // If it's not already selected and can be...
         if (!objectSelected && canBeSelected)
         {
+            // Set the object to selected.
             objectSelected = true;
+            // Tell the Object Selection Manager this is the selected asset.
             selectionManager.SetNewObjectAsSelected(this.gameObject);
         }
     }
 
-    private void OnMouseEnter()
-    {
-        
-    }
-
-    private void OnMouseExit()
-    {
-        if (objectSelected)
-        {
-            selectionManager.SelectedObjectIsActive(false);
-        }
-
-        else
-        {
-            canBeSelected = false;
-        }
-    }
-
+    // If the mouse/finger is hovering over the asset...
     private void OnMouseOver()
     {
+        // If the object is selected...
         if (objectSelected)
         {
+            // Tell the Selection Manager it's being interacted with.
             selectionManager.SelectedObjectIsActive(true);
         }
 
+        //!!! ??? !!!//
         else
         {
             selectionManager.SelectedObjectIsActive(true);
@@ -77,11 +60,20 @@ public class ClickToSelectTest : MonoBehaviour
         }
     }
 
-    private void OnMouseDrag()
+    // As a back up to the MouseOver, if the mouse/finger leaves the asset...
+    private void OnMouseExit()
     {
+        // If it was selected...
         if (objectSelected)
         {
-            transform.position = cameraInUse.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.0f));
+            // Tell the Object Selection Manager to unselect it.
+            selectionManager.SelectedObjectIsActive(false);
+        }
+
+        //!!! ??? !!!//
+        else
+        {
+            canBeSelected = false;
         }
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class tempManipulationManager : MonoBehaviour
 {
+    /*
+    //************* no need
     // The object that will be manipulated.
     [SerializeField]
     GameObject assetToManipulate;
@@ -112,7 +114,7 @@ public class tempManipulationManager : MonoBehaviour
             // Turn on the rotate object
             rotatableAsset.gameObject.SetActive(true);
             // Call to enable it.
-            rotatableAsset.EnableSystem(true, currentView_TopDown, currentCam, assetToManipulate.transform, assetManipulationGovernor.RotationPointHolder());
+            //rotatableAsset.EnableSystem(true, currentView_TopDown, currentCam, assetToManipulate.transform, assetManipulationGovernor.RotationPointHolder());
         }
 
         // If an asset can be scaled..
@@ -126,7 +128,8 @@ public class tempManipulationManager : MonoBehaviour
                 // Tell each of the markers where they are to rest when not in use on the asset,
                 // and load the asset with those markers so it knows what points to scale to.
                 scale_PointMarkerArray[i].gameObject.SetActive(true);
-                Transform restPt = scalableAssetScript.LoadScalePointMarkers(i, scale_PointMarkerArray[i]);
+                //!!! THIS NEEDS TO BE FIXED DURING RECONNECT !!!//
+                Transform restPt = null;
 
                 // Get the marker behavior script and tell the marker it's active and where to rest.
                 ScalePointMarkerBehavior pointMarker = scale_PointMarkerArray[i].GetComponent<ScalePointMarkerBehavior>();
@@ -139,9 +142,9 @@ public class tempManipulationManager : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
-    void DisableAssetManipulationSystems()
+    /*void DisableAssetManipulationSystems()
     {
         assetManipulationGovernor = null;
         rotatableAsset.EnableSystem(false, currentView_TopDown, null, null, transform);
@@ -149,9 +152,9 @@ public class tempManipulationManager : MonoBehaviour
 
         assetManipulationGovernor = null;
         //assetToManipulate = null;
-    }
+    }*/
 
-    void DeactivateScalability()
+   /* void DeactivateScalability()
     {
         rotatableAsset.transform.position = transform.position;
         rotatableAsset.gameObject.SetActive(false);
@@ -167,5 +170,5 @@ public class tempManipulationManager : MonoBehaviour
 
         ScaleObject scalableAssetScript = assetToManipulate.GetComponent<ScaleObject>();
         scalableAssetScript.EnableScaling(false);
-    }
+    }*/
 }

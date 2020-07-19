@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScaleObject : MonoBehaviour
 {
+    //!!! THE MARKERS CAMERA WILL BE SET DIRECTLY THROUGH THE GOVERNOR !!!//
     [SerializeField]
     Camera tempCam;
 
@@ -16,8 +17,8 @@ public class ScaleObject : MonoBehaviour
     [SerializeField]
     bool zScalable;
 
-    // This lets the system know if it
-    // can scale or not.
+    // This lets the scale system know if 
+    // it can scale or not.
     [SerializeField]
     bool scaleActive;
 
@@ -25,22 +26,15 @@ public class ScaleObject : MonoBehaviour
     // scale marker points will snap to.
     public Transform[] myScalePoints;
 
-    // The Manipulation Manager will load this array so this
-    // system knows what points to scale to.
+    // These let the scale system knows what points to scale to.
     [SerializeField]
     Transform[] scalePointMarkerArray;
+    // Array of scripts to talk to each of markers through.
     ScalePointMarkerBehavior[] pointMarker = new ScalePointMarkerBehavior[6];
-
-    public Transform LoadScalePointMarkers(int pt, Transform marker)
-    {
-        scalePointMarkerArray[pt] = marker;
-
-        return myScalePoints[pt];
-    }
 
     // When this asset is selected and unselected, the Manipulation Manager will call this
     // to active and set the system up to run after its scale point markers are loaded. 
-    public void EnableScaling(bool active)
+    public void EnableScaling(bool active, Camera cam)
     {
         scaleActive = active;
 
@@ -54,16 +48,22 @@ public class ScaleObject : MonoBehaviour
             scalePointMarkerArray[3].gameObject.SetActive(xScalable);
             scalePointMarkerArray[4].gameObject.SetActive(yScalable);
             scalePointMarkerArray[5].gameObject.SetActive(yScalable);
+
+            for (int i = 0; i < scalePointMarkerArray.Length; i++)
+            {
+                pointMarker[i].SetPointActive(true, cam, myScalePoints[i]);
+            }
         }
 
         else
         {
-            // When the asset is deactivated the scale point marker array
-            // is cleared so that it doesn't by chance scale with another asset.
-            //for (int sPt = 0; sPt < scalePointMarkerArray.Length; sPt++)
-            //{
-                //scalePointMarkerArray[sPt] = null;
-            //}
+            // If the system isn't active, turn all markers off.
+            for (int sPt = 0; sPt < scalePointMarkerArray.Length; sPt++)
+            {
+                pointMarker[sPt].SetPointActive(false, null, myScalePoints[sPt]);
+                scalePointMarkerArray[sPt].parent = myScalePoints[sPt];
+                scalePointMarkerArray[sPt].gameObject.SetActive(false);
+            }
         }
     }
 
@@ -72,33 +72,32 @@ public class ScaleObject : MonoBehaviour
         for (int i = 0; i < scalePointMarkerArray.Length; i++)
         {
             pointMarker[i] = scalePointMarkerArray[i].GetComponent<ScalePointMarkerBehavior>();
+            scalePointMarkerArray[i].gameObject.SetActive(false);
         }
     }
 
     void Update()
     {
-        if (!scaleActive)
+        if (Input.GetKeyDown(KeyCode.M))
         {
-            if (scalePointMarkerArray[5].parent == null)
-            {
-                for (int i = 0; i < scalePointMarkerArray.Length; i++)
-                {
-                    scalePointMarkerArray[i].parent = myScalePoints[i];
-                    pointMarker[i].SetPointActive(false, null, myScalePoints[i]);
-                }
-            }
+            if (scaleActive)
+                EnableScaling(true, tempCam);
+            else
+                EnableScaling(false, null);
         }
 
-        else
+        if (scaleActive)
         {
             CheckAssetScaling();
         }
     }
 
+    // If the system is active and checking for scaling...
     void CheckAssetScaling()
     {
         for (int m = 0; m < pointMarker.Length; m++)
         {
+            // If one of the markers is in use...
             if (pointMarker[m].MarkerInUse())
             {
                 SetMarkers(true, m);
@@ -114,10 +113,12 @@ public class ScaleObject : MonoBehaviour
 
     void SetMarkers(bool scaling, int inUse)
     {
+        // If the object is scaling...
         if (scaling)
         {
             for (int m = 0; m < scalePointMarkerArray.Length; m++)
             {
+                // Set the parent of all but the marker being used to their rest points.
                 if (m != inUse)
                 {
                     pointMarker[m].SetPointActive(false, null, myScalePoints[m]);
@@ -126,15 +127,18 @@ public class ScaleObject : MonoBehaviour
             }
         }
 
+        // If the object isn't scaling...
         else
         {
             for (int m = 0; m < scalePointMarkerArray.Length; m++)
             {
+                // Unparent all marker points.
                 pointMarker[m].SetPointActive(transform, tempCam, myScalePoints[m]);
                 scalePointMarkerArray[m].parent = null;
             }
         }
 
+        // Run the scaling of the asset.
         ScaleAsset();
     }
 

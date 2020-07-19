@@ -853,7 +853,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &694851849
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1664,9 +1664,9 @@ GameObject:
   - component: {fileID: 1420530069}
   - component: {fileID: 1420530068}
   - component: {fileID: 1420530067}
-  - component: {fileID: 1420530065}
   - component: {fileID: 1420530066}
   - component: {fileID: 1420530072}
+  - component: {fileID: 1420530065}
   m_Layer: 0
   m_Name: MoveRotateAndScalable_Object
   m_TagString: Untagged
@@ -1683,12 +1683,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420530064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84b1c8cec8d494246aba27b2e0565f48, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a58a5c385ef24a4fb0273f1bba365cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectionManager: {fileID: 1423456817}
-  canBeSelected: 0
-  objectSelected: 0
 --- !u!114 &1420530066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1701,7 +1698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddcd658bd8923644854a58b0e196c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempCam: {fileID: 694851850}
+  tempCam: {fileID: 1714130066}
   xScalable: 1
   yScalable: 1
   zScalable: 1
@@ -1835,10 +1832,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02af0f909536ab242b37292223f097b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canMove: 0
+  tempManagerHolder: {fileID: 1423456816}
+  canMove: 1
   canRotate: 1
   canScale: 1
-  assetRotate_ManipulationPoint: {fileID: 1976193513}
+  rotatePointMarker: {fileID: 1040981896}
+  assetRotate_RestPoint: {fileID: 1976193513}
+  canBeSelected: 0
+  objectSelected: 0
 --- !u!1 &1423456816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,7 +1872,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCam: {fileID: 1714130066}
   persCam: {fileID: 694851850}
-  objectCurrentlySelected: {fileID: 0}
+  topdownCameraMode: 0
+  objectCurrentlySelected: {fileID: 1420530064}
   currentObjectActive: 0
 --- !u!4 &1423456818
 Transform:
@@ -1899,18 +1901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c15d440b3b96bc449447916b65e2e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  assetToManipulate: {fileID: 1420530064}
-  rotatableAsset: {fileID: 1040981901}
-  scale_PointMarkerArray:
-  - {fileID: 2045551919}
-  - {fileID: 29753790}
-  - {fileID: 1623854573}
-  - {fileID: 1388895554}
-  - {fileID: 40741672}
-  - {fileID: 1100968551}
-  topdownCam: {fileID: 1714130066}
-  perspCam: {fileID: 694851850}
-  currentView_TopDown: 0
 --- !u!1 &1461597768
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,7 +2288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1714130065
 AudioListener:
   m_ObjectHideFlags: 0

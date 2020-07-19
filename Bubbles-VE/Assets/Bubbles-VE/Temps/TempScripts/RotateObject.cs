@@ -42,7 +42,7 @@ public class RotateObject : MonoBehaviour
     }
 
     // The Manipulation Manager calls this to activate and deactivate the system by passing in the information needed.
-    public void EnableSystem(bool active, bool view, Camera currCam, Transform rotatingObj, Transform pointOfRest)
+    public void EnableRotate(bool active, bool view, Camera currCam, Transform rotatingObj, Transform pointOfRest)
     {
         rotateActive = active;
         currentlyRotating = false;
