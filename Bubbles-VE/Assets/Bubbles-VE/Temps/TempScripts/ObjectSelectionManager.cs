@@ -82,6 +82,11 @@ public class ObjectSelectionManager : MonoBehaviour
         }
     }
 
+    public Camera CreationCamera()
+    {
+        return camInUse;
+    }
+
     // Asset calls this to tell this system it's being
     // interacted with.
     public void SelectedObjectIsActive(bool active)
