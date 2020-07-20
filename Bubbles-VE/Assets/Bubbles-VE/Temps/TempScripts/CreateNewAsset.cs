@@ -26,6 +26,7 @@ public class CreateNewAsset : MonoBehaviour
 
     public void Create()
     {
+        Debug.Log("Creating new asset!!");
         // Set the position the corner point is to be created at.
         Vector3 createPos = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth / 2, cam.pixelHeight / 2, 10.0f));
         // Create the point at the location.
